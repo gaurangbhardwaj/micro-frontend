@@ -51,7 +51,6 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "mfeShell",
       remotes: {
-        mfeCommon: "mfeCommon@http://localhost:3001/remoteEntry.js",
         mfeMarketing: "mfeMarketing@http://localhost:3002/remoteEntry.js",
         mfeApp: "mfeApp@http://localhost:3003/remoteEntry.js",
       },
