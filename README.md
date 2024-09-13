@@ -8,6 +8,11 @@ Webpack 5 introduced Module Federation, a feature designed to support the develo
 
 We'll use Webpack 5's Module Federation in this example to create a micro frontend architecture. Here's a step-by-step guide on how to set up a basic micro frontend project.
 
+![Screenshot 2024-09-14 004601](https://github.com/user-attachments/assets/793e63d1-e110-4ac2-9df5-7f1a9aedbf02)
+
+![Screenshot 2024-09-14 004212](https://github.com/user-attachments/assets/45359fec-e974-45c4-9b94-4df743b0b881)
+
+
 ### Project Structure
 
 The project consists of three main parts:
