@@ -22,7 +22,9 @@ The project consists of three main parts:
 - **mfe-app**: Micro frontend that will contain all the app pages like login etc (can use mfe-common components).
 - **mfe-marketing**: Micro frontend that will contain your static marketing pages (can use mfe-common components).
 
-### Setting Up Micro Frontends with Webpack 5
+
+## Setting Up Micro Frontends with Webpack 5
+
 ## 1. Basic Configuration
 In the `mfe-shell`, `*mfe-common`, `mfe-app` and `mfe-marketing` folders you will find `webpack.config.js` file, which contains your basic Webpack module federation config:
 
@@ -112,9 +114,9 @@ function App() {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-### Best Practices
-## Version Management: Ensure compatibility between shared libraries by managing versions effectively.
-## Performance: Monitor and optimize loading times of remote components to maintain performance.
-## Isolation: Maintain clear boundaries between micro frontends to avoid unintentional dependencies.
+## Best Practices
+1. Version Management: Ensure compatibility between shared libraries by managing versions effectively.
+2. Performance: Monitor and optimize loading times of remote components to maintain performance.
+3. Isolation: Maintain clear boundaries between micro frontends to avoid unintentional dependencies.
 
 
