@@ -22,12 +22,11 @@ The project consists of three main parts:
 - **mfe-app**: Micro frontend that will contain all the app pages like login etc (can use mfe-common components).
 - **mfe-marketing**: Micro frontend that will contain your static marketing pages (can use mfe-common components).
 
-### 1. Setting Up Webpack Configuration
+### Setting Up Micro Frontends with Webpack 5
+## 1. Basic Configuration
+In the `mfe-shell`, `*mfe-common`, `mfe-app` and `mfe-marketing` folders you will find `webpack.config.js` file, which contains your basic Webpack module federation config:
 
-#### Container App
-
-In the `shell-app` folder, create a `webpack.config.js` file:
-
+## Host Application (container) Webpack Configuration (mfe-shell):
 ```javascript
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const path = require('path');
@@ -63,3 +62,59 @@ module.exports = {
     port: 3000
   }
 };
+```
+
+## Remote Micro Frontend Webpack Configuration (mfe-common, mfe-app and mfe-marketing):
+```javascript
+// webpack.config.js
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const path = require('path');
+
+module.exports = {
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    publicPath: 'auto',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'microFrontend',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Button': './src/Button',
+      },
+      shared: ['react', 'react-dom'],
+    }),
+  ],
+};
+
+```
+
+## 2. Building and Loading Micro Frontends
+With the above configurations, the `hostApp` will dynamically load modules from `microFrontend` at runtime. When the host application requires the Button component, it will fetch it from the remote micro frontend’s `remoteEntry.js`.
+
+```javascript
+// src/index.js in hostApp
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Button = React.lazy(() => import('microFrontend/Button'));
+
+function App() {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Button />
+    </React.Suspense>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+### Best Practices
+## Version Management: Ensure compatibility between shared libraries by managing versions effectively.
+## Performance: Monitor and optimize loading times of remote components to maintain performance.
+## Isolation: Maintain clear boundaries between micro frontends to avoid unintentional dependencies.
+
+
